@@ -1,6 +1,6 @@
 ﻿namespace Garage
 {
-    internal class Wheel
+    internal class Wheel : Fillable
     {
         private string m_Manufacturer;
         private float m_CurrentPressure;
@@ -15,11 +15,15 @@
 
         internal void Inflate(float i_Amount)
         {
-            if (i_Amount < 0 || i_Amount + m_CurrentPressure > r_MaximumPressure)
+            if (Fillable.AmountInRange(i_Amount, m_CurrentPressure, r_MaximumPressure))
+            {
+                m_CurrentPressure += i_Amount;
+            }
+            else
             {
                 throw new ValueOutOfRangeException(0, r_MaximumPressure - m_CurrentPressure);
             }
-            m_CurrentPressure += i_Amount;
         }
+        internal float  GetPressureDeltaFromMaximum() { return r_MaximumPressure-m_CurrentPressure;}
     }
 }
