@@ -1,2 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿namespace UserInterface
+{
+    public class Program
+    {
+        public static void Main()
+        {
+            UserInterface userInterface = new UserInterface();
+            userInterface.StartInteraction();
+        }
+    }
+}

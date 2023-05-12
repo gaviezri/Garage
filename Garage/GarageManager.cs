@@ -19,7 +19,7 @@ namespace Garage
             //m_LicenseNum2Vehicle = new Dictionary<string,Vehicle>();
         }
         // to interact with the manager, use this method to obtain a reference
-        public GarageManager getManager()
+        public static GarageManager getManager()
         {
             if (instance == null) 
             {
