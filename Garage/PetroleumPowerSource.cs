@@ -22,10 +22,14 @@
             r_MaximumTank = i_MaximumTank;
             m_Type = i_Type;
         }
-        
+
+        internal override bool AmountInRange(float i_Amount)
+        {
+            return i_Amount > 0 && (i_Amount + m_RemainingTank) < r_MaximumTank;
+        }
         internal override void Fill(float i_Amount)
         {
-            if(AmountInRange(i_Amount, m_RemainingTank, r_MaximumTank))
+            if(AmountInRange(i_Amount))
             {
                 m_RemainingTank += i_Amount;
             }

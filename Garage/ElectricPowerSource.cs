@@ -11,9 +11,14 @@
             r_MaximumBattery = i_maximumBattery;
         }
 
+        internal override bool AmountInRange(float i_Amount)
+        {
+            return i_Amount > 0 && (m_RemainingBattery + i_Amount) < r_MaximumBattery;
+        }
+
         internal override void Fill(float i_Amount)
         {
-            if (AmountInRange(i_Amount,m_RemainingBattery,r_MaximumBattery))
+            if (AmountInRange(i_Amount))
             {
                 m_RemainingBattery += i_Amount;
             }
