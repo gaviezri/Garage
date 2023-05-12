@@ -5,8 +5,10 @@ namespace Garage
         private readonly string r_Model;
         private readonly string r_LicenseNumber;
         private float m_PercentageOfEnergyLeft;
-        private Wheel[] m_Wheels;
+        private List<Wheel> m_Wheels;
         private PowerSource m_PowerSource;
+
+      
 
         public Vehicle(string i_Model, string i_LicenseNumber, float i_PercentageOfEnergyLeft, 
             Wheel[] i_Wheels, PowerSource i_PowerSource)
@@ -14,9 +16,16 @@ namespace Garage
             r_Model = i_Model;
             r_LicenseNumber = i_LicenseNumber;
             m_PercentageOfEnergyLeft = i_PercentageOfEnergyLeft;
-            m_Wheels = i_Wheels;
+            m_Wheels = new List<Wheel>(i_Wheels);
             m_PowerSource = i_PowerSource;
         }
+
+        internal PowerSource Powersource
+        {
+            get { return m_PowerSource; }
+        }
+
+        internal List<Wheel> Wheels { get { return m_Wheels; } }
 
         public void Fill(float i_AmountToFile)
         {
