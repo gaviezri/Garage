@@ -40,12 +40,12 @@
             throw new VehicleNotExistsException(i_LicenseNum);
         }
 
-        public void InsertNewVehicle(VehicleCreationBlueprint i_blueprint) 
+        public void InsertNewVehicle(VehicleCreationBlueprint i_Blueprint) 
         {
-            Vehicle newVehicle = VehicleCreator.CreateVehicle(i_blueprint);
-            VehicleInGarage newVehicleInGarage = new VehicleInGarage(i_blueprint.OwnerName, i_blueprint.OwnerPhone, i_blueprint.License);
+            Vehicle newVehicle = VehicleCreator.CreateVehicle(i_Blueprint);
+            VehicleInGarage newVehicleInGarage = new VehicleInGarage(i_Blueprint.OwnerName, i_Blueprint.OwnerPhone, i_Blueprint.License);
             m_VehiclesInGarage.Add(newVehicleInGarage);
-            m_LicenseNum2Vehicle.Add(i_blueprint.License, newVehicle);
+            m_LicenseNum2Vehicle.Add(i_Blueprint.License, newVehicle);
         }
 
         public List<string> GetAllVehiclesLicense(string i_fitler = "")

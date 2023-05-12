@@ -6,6 +6,7 @@ namespace Garage
 {
     public class VehicleCreationBlueprint
     {
+        private Dictionary<string, object> data = new();
         public enum ePowerSource
         {
             Electric,
@@ -18,47 +19,7 @@ namespace Garage
             Motorcycle,
             Truck
         }
-
-        public static ePowerSource PowerSourceFromString(string i_PowerSource)
-        {
-            ePowerSource powerSource;
-            switch (i_PowerSource)
-            {
-                case "Electric":
-                    powerSource = ePowerSource.Electric;
-                    break;
-                case "Petrol":
-                    powerSource = ePowerSource.Petrol;
-                    break;
-                default:
-                    throw new ArgumentException("Invalid power source");
-            }
-            return powerSource;
-        }
-
-        public static eVehicleType VehicleTypeFromString(string i_VehicleType)
-        {
-            eVehicleType vehicleType;
-            switch (i_VehicleType)
-            {
-                case "Car":
-                    vehicleType = eVehicleType.Car;
-                    break;
-                case "Motorcycle":
-                    vehicleType = eVehicleType.Motorcycle;
-                    break;
-                case "Truck":
-                    vehicleType = eVehicleType.Truck;
-                    break;
-                default:
-                    throw new ArgumentException("Invalid vehicle type");
-            }
-            return vehicleType;
-        }
-
-        Dictionary<string, object> data = new();
-
-
+        
         public string License
         {
             get { return (string)data["LicenseNum"]; }
@@ -155,7 +116,7 @@ namespace Garage
             set { data.Add("TruckIsDeliveringHazardousMaterials", value); }
         }
         
-        public int TruckTrunkCapacity
+        public float TruckTrunkCapacity
         {
             get { return (int)data["TruckTrunkCapacity"]; }
             set { data.Add("TruckTrunkCapacity", value); }
@@ -174,5 +135,59 @@ namespace Garage
             set { data.Add("OwnerName", value); }
         }
 
+        public static bool isDeliveringHazardousMaterialsFromString(string i_Input)
+        {
+            bool isDeliveringHazardousMaterials = false;
+            switch (i_Input.ToLower())
+            {
+                case "yes":
+                    isDeliveringHazardousMaterials = true;
+                    break;
+                case "no":
+                    isDeliveringHazardousMaterials = false;
+                    break;
+                default:
+                    throw new ArgumentException("Invalid answer on if truck is delivering hazardous materials");
+            }
+
+            return isDeliveringHazardousMaterials;
+        }
+        
+        public static ePowerSource PowerSourceFromString(string i_PowerSource)
+        {
+            ePowerSource powerSource;
+            switch (i_PowerSource.ToLower())
+            {
+                case "electric":
+                    powerSource = ePowerSource.Electric;
+                    break;
+                case "petrol":
+                    powerSource = ePowerSource.Petrol;
+                    break;
+                default:
+                    throw new ArgumentException("Invalid power source");
+            }
+            return powerSource;
+        }
+
+        public static eVehicleType VehicleTypeFromString(string i_VehicleType)
+        {
+            eVehicleType vehicleType;
+            switch (i_VehicleType.ToLower())
+            {
+                case "car":
+                    vehicleType = eVehicleType.Car;
+                    break;
+                case "motorcycle":
+                    vehicleType = eVehicleType.Motorcycle;
+                    break;
+                case "truck":
+                    vehicleType = eVehicleType.Truck;
+                    break;
+                default:
+                    throw new ArgumentException("Invalid vehicle type");
+            }
+            return vehicleType;
+        }
     }   
 }

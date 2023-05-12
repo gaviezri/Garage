@@ -1,4 +1,3 @@
-using System.Threading.Channels;
 using Garage;
 
 namespace UserInterface
@@ -129,16 +128,108 @@ namespace UserInterface
         private void insertVehicleToGarage(GarageManager i_GarageManager)
         {
             Console.WriteLine("Please enter a vehicle's license number");
-            string inputLicenseNumber = Console.ReadLine();
-            
             try
             {
                 changeExistingVehicleStatus(i_GarageManager, "PreService");
             }
             catch (VehicleNotExistsException exception)
             {
-                
+                i_GarageManager.InsertNewVehicle(createVehicleBlueprint(exception.Message));
+                Console.WriteLine("Vehicle inserted to garage successfully!");
+                pressAnyKeyToContinue();
             }
+        }
+
+        private VehicleCreationBlueprint createVehicleBlueprint(string i_LicenseNumber)
+        {
+            VehicleCreationBlueprint vehicleBlueprint = new VehicleCreationBlueprint();
+            vehicleBlueprint.License = i_LicenseNumber;
+            while (true)
+            {
+                try
+                {
+                    getBaseVehicleBlueprint(vehicleBlueprint);
+                    getVehicleDetialsAccoringToType(vehicleBlueprint);
+                    getEnergyRelatedDetails(vehicleBlueprint);
+                    getWheelDetails(vehicleBlueprint);
+                    break;
+                }
+                catch (ArgumentException exception)
+                {
+                    Console.WriteLine(exception.Message);
+                    Console.WriteLine("Please try again:");
+                }
+            }
+            
+            return vehicleBlueprint;
+        }
+
+        private void getBaseVehicleBlueprint(VehicleCreationBlueprint i_VehicleBlueprint)
+        {
+            Console.WriteLine("Please enter owner name:");
+            i_VehicleBlueprint.OwnerName = Console.ReadLine();
+            Console.WriteLine("Please enter owner's phone number:");
+            i_VehicleBlueprint.OwnerPhone = Console.ReadLine();
+            Console.WriteLine("Please enter engine type (Electric or Petrol):");
+            i_VehicleBlueprint.PowerSource = Console.ReadLine();
+            Console.WriteLine("Please enter vehicle type (Car, Motorcycle or Truck):");
+            i_VehicleBlueprint.VehicleType = Console.ReadLine();
+            Console.WriteLine("Please enter Model:");
+            i_VehicleBlueprint.Model = Console.ReadLine();
+        }
+
+        private void getVehicleDetialsAccoringToType(VehicleCreationBlueprint i_VehicleBlueprint)
+        {
+            switch (i_VehicleBlueprint.VehicleType.ToLower())
+            {
+                case "car":
+                    Console.WriteLine("Please enter colour (White, Black, Yellow or Red):");
+                    i_VehicleBlueprint.CarColour = Console.ReadLine();
+                    Console.WriteLine("Please enter amount of doors (2, 3, 4 or 5):");
+                    i_VehicleBlueprint.CarDoorCount = Console.ReadLine();
+                    break;
+                case "motorcycle":
+                    Console.WriteLine("Please enter license type (A1, A2, AA, B1):");
+                    i_VehicleBlueprint.MotorcycleLicenseType = Console.ReadLine();
+                    Console.WriteLine("Please enter engine capacity:");
+                    int.TryParse(Console.ReadLine(), out int inputEngineCapacity);
+                    i_VehicleBlueprint.MotorcycleEngineCapacity = inputEngineCapacity;
+                    break;
+                case "truck":
+                    Console.WriteLine("Please enter if the truck deliver hazardous materials (Yes or No)");
+                    bool isHazardous = VehicleCreationBlueprint.isDeliveringHazardousMaterialsFromString(Console.ReadLine());
+                    i_VehicleBlueprint.TruckIsDeliveringHazardousMaterials = isHazardous;
+                    Console.WriteLine("Please enter trunk capacity:");
+                    float.TryParse(Console.ReadLine(), out float inputTrunkCapacity);
+                    i_VehicleBlueprint.TruckTrunkCapacity = inputTrunkCapacity;
+                    break;
+            }
+        }
+
+        private void getEnergyRelatedDetails(VehicleCreationBlueprint i_VehicleBlueprint)
+        {
+            if (i_VehicleBlueprint.PowerSource.ToLower() == "petrol")
+            {
+                Console.WriteLine("Please enter petrol type (Soler, Octan95, Octan96 or Octan98):");
+                i_VehicleBlueprint.PetrolType = Console.ReadLine();
+                Console.WriteLine("Please enter amount petrol remaining in litres:");
+            }
+            else
+            {
+                Console.WriteLine("Please enter battery time remaining in hours:");
+            }
+            
+            float.TryParse(Console.ReadLine(), out float remainingEnergy);
+            i_VehicleBlueprint.CurrentEnergyLevel = remainingEnergy;
+        }
+
+        private void getWheelDetails(VehicleCreationBlueprint i_VehicleBlueprint)
+        {
+            Console.WriteLine("Please enter wheel manufacturer:");
+            i_VehicleBlueprint.WheelManufacturer = Console.ReadLine();
+            Console.WriteLine("Please enter wheel air pressure once to applied to all tyres");
+            int.TryParse(Console.ReadLine(), out int currentWheelAirPressure);
+            i_VehicleBlueprint.CurrentAirPressure = currentWheelAirPressure;
         }
 
         private void listAllLicenseNumbers(GarageManager i_GarageManager)
@@ -283,15 +374,15 @@ namespace UserInterface
         {
             int originalCursorLeft = Console.CursorLeft;
             int originalCursorTop = Console.CursorTop;
-            string licenseNumber;
-            string newStatus;
+            string licenseNumber = "";
+            string newStatus = "";
 
             while (true)
             {
                 try
                 {
                     licenseNumber = getLicenseNumber();
-                    if (i_Status != "")
+                    if (i_Status == "")
                     {
                         newStatus = getStatus();
                     }
@@ -307,7 +398,7 @@ namespace UserInterface
                 {
                     if (i_Status != "")
                     {
-                        throw exception;
+                        throw new VehicleNotExistsException(licenseNumber);
                     }
                     
                     resetInput(originalCursorLeft, originalCursorTop);
@@ -322,7 +413,15 @@ namespace UserInterface
                 }
             }
             
-            Console.WriteLine("Status changed successfully!");
+            if (i_Status != "")
+            {
+                Console.WriteLine("Vehicle already exists so its status changed to in service!");
+            }
+            else
+            {
+                Console.WriteLine("Status changed successfully!");
+            }
+            
             pressAnyKeyToContinue();
         }
 

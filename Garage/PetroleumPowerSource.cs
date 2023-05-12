@@ -47,18 +47,18 @@
         internal static ePetrolType PetrolTypeFromString(string str)
         {
             ePetrolType ePet;
-            switch(str)
+            switch(str.ToLower())
             {
-                case "Soler":
+                case "soler":
                     ePet = ePetrolType.Soler;
                     break;
-                case "Octan95":
+                case "octan95":
                     ePet = ePetrolType.Octan95;
                     break;
-                case "Octan96":
+                case "octan96":
                     ePet = ePetrolType.Octan96;
                     break;
-                case "Octan98":
+                case "octan98":
                     ePet = ePetrolType.Octan98;
                     break;
                 default:

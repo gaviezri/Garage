@@ -1,30 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-namespace Garage
+﻿namespace Garage
 {
     internal class VehicleCreator
     {
         internal static Vehicle CreateVehicle(VehicleCreationBlueprint i_Blueprint)
         {
-           
             Vehicle vehicle = null;
-            switch (i_Blueprint.VehicleType)
+            switch (i_Blueprint.VehicleType.ToLower())
             {
-                case "Car":
+                case "car":
                     vehicle = createCar(i_Blueprint);
                     break;
-                case "Motorcycle":
+                case "motorcycle":
                     vehicle = createMotorcycle(i_Blueprint);
                     break;
-                case "Truck":
+                case "truck":
                     vehicle = createTruck(i_Blueprint);
                     break;
             }
+            
             return vehicle;
         }
 
@@ -36,7 +29,6 @@ namespace Garage
                            createPowerSource(i_Blueprint),
                            Car.ColourFromString(i_Blueprint.CarColour),
                            Car.DoorCountFromString(i_Blueprint.CarDoorCount));
-
         }
 
         private static Motorcycle createMotorcycle(VehicleCreationBlueprint i_Blueprint)
@@ -62,17 +54,18 @@ namespace Garage
         private static PowerSource createPowerSource(VehicleCreationBlueprint i_Blueprint)
         {
             PowerSource powerSource;
-            switch (i_Blueprint.PowerSource)
+            switch (i_Blueprint.PowerSource.ToLower())
             {
-                case "Electric":
+                case "electric":
                     powerSource = new ElectricPowerSource(i_Blueprint.CurrentEnergyLevel, i_Blueprint.MaxEnergyCapacity);
                     break;
-                case "Petrol":
+                case "petrol":
                     powerSource = new PetroleumPowerSource(i_Blueprint.CurrentEnergyLevel, i_Blueprint.MaxEnergyCapacity, i_Blueprint.PetrolType);
                     break;
                 default:
                     throw new ArgumentException("Invalid power source");
             }
+            
             return powerSource;
         }
 
@@ -83,6 +76,7 @@ namespace Garage
             {
                 wheels[i] = new Wheel(i_Blueprint.WheelManufacturer, i_Blueprint.CurrentAirPressure, i_Blueprint.MaxAirPressure);
             }
+            
             return wheels;
         }
     }
