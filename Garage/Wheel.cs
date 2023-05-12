@@ -4,7 +4,7 @@
     {
         private string m_Manufacturer;
         private float m_CurrentPressure;
-        private float m_MaximumPressure;
+        private readonly float m_MaximumPressure;
 
         internal Wheel(string i_Manufacturer, float i_CurrentPressure, float i_MaximumPressure)
         {
@@ -19,8 +19,7 @@
             {
                 // throw new ValueOutOfRangeException("...");
             }
-
+            m_CurrentPressure += i_Amount;
         }
-        
     }
 }
