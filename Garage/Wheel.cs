@@ -15,9 +15,9 @@
 
         internal void Inflate(float i_Amount)
         {
-            if (i_Amount < 0 || (i_Amount + m_CurrentPressure > r_MaximumPressure) )
+            if (i_Amount < 0 || i_Amount + m_CurrentPressure > r_MaximumPressure)
             {
-                // throw new ValueOutOfRangeException("...");
+                throw new ValueOutOfRangeException(0, r_MaximumPressure - m_CurrentPressure);
             }
             m_CurrentPressure += i_Amount;
         }

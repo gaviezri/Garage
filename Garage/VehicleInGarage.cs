@@ -20,6 +20,5 @@
             r_OwnerPhone = i_OwnerPhone;
             m_status = eStatus.preService;
         }
-
     }
 }

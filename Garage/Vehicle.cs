@@ -2,8 +2,8 @@ namespace Garage
 {
     internal abstract class Vehicle
     {
-        private readonly string m_Model;
-        private readonly string m_LicenseNumber;
+        private readonly string r_Model;
+        private readonly string r_LicenseNumber;
         private float m_PercentageOfEnergyLeft;
         private Wheel[] m_Wheels;
         private PowerSource m_PowerSource;
@@ -11,8 +11,8 @@ namespace Garage
         public Vehicle(string i_Model, string i_LicenseNumber, float i_PercentageOfEnergyLeft, 
             Wheel[] i_Wheels, PowerSource i_PowerSource)
         {
-            m_Model = i_Model;
-            m_LicenseNumber = i_LicenseNumber;
+            r_Model = i_Model;
+            r_LicenseNumber = i_LicenseNumber;
             m_PercentageOfEnergyLeft = i_PercentageOfEnergyLeft;
             m_Wheels = i_Wheels;
             m_PowerSource = i_PowerSource;
@@ -20,28 +20,14 @@ namespace Garage
 
         public void Fill(float i_AmountToFile)
         {
-            try
-            {
-                m_PowerSource.Fill(i_AmountToFile);
-            }
-            catch (ValueOutOfRangeException exception)
-            {
-                
-            }
+            m_PowerSource.Fill(i_AmountToFile);
         }
 
         public void InflateTyre(Dictionary<Wheel, float> i_WheelsInflation)
         {
-            try
+            foreach (var wheelAndAmountToInflate in i_WheelsInflation)
             {
-                foreach (var wheelAndAmountToInflate in i_WheelsInflation)
-                {
-                    wheelAndAmountToInflate.Key.Inflate(wheelAndAmountToInflate.Value);
-                }
-            }
-            catch (ValueOutOfRangeException exception)
-            {
-                
+                wheelAndAmountToInflate.Key.Inflate(wheelAndAmountToInflate.Value);
             }
         }
     }

@@ -4,7 +4,10 @@
     {
         internal enum ePetrolType
         {
-            Soler, Octan95, Octan96, Octan98
+            Soler,
+            Octan95,
+            Octan96,
+            Octan98
         }
         
         private float m_RemainingTank;
@@ -17,6 +20,7 @@
             r_MaximumTank = i_MaximumTank;
             m_Type = i_Type;
         }
+        
         internal override void Fill(float i_Amount)
         {
             if(AmountInRange(i_Amount, m_RemainingTank, r_MaximumTank))
@@ -25,7 +29,7 @@
             }
             else
             {
-                // throw new ValueOutOfRange(...)
+                throw new ValueOutOfRangeException(0, m_RemainingTank);
             }
         }
     }

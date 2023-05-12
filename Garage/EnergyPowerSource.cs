@@ -17,11 +17,10 @@
             {
                 m_RemainingBattery += i_Amount;
             }
-            else 
+            else
             {
-                // throw new ValueOutOfRange(...)
+                throw new ValueOutOfRangeException(0, m_RemainingBattery);
             }
-
         }
     }
 }
