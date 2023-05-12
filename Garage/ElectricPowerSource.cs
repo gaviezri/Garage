@@ -32,5 +32,12 @@
         {
             return r_MaximumBattery - m_RemainingBattery;
         }
+
+        public override string ToString()
+        {
+            return "Electric Power Source\n" +
+                   $"Remaining Battery: {m_RemainingBattery}\n" +
+                   $"Maximum Battery: {r_MaximumBattery}\n";
+        }
     }
 }

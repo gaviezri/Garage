@@ -2,6 +2,6 @@
 *\.vs
 *\bin
 *\obj
-obj
-bin
+*\obj\*
+*\bin\*
 /UserInterface/obj/Debug/net6.0/UserInterface.csproj.AssemblyReference.cache

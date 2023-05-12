@@ -12,5 +12,13 @@ namespace Garage
             r_isDeliveringHazardousMaterials = i_isDeliveringHazardousMatriels;
             r_TrunkCapacity = i_TrunkCapacity;
         }
+
+        public override string ToString()
+        {
+            return "Truck" +
+                   $"Delivers Hazardous Materials: {r_isDeliveringHazardousMaterials}\n" +
+                   $"Trunk Volume: {r_TrunkCapacity}\n" +
+                   base.ToString();
+        }
     }
 }
