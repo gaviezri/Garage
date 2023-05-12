@@ -2,8 +2,8 @@ namespace Garage
 {
     internal abstract class Vehicle
     {
-        private string m_Model;
-        private string m_LicenseNumber;
+        private readonly string m_Model;
+        private readonly string m_LicenseNumber;
         private float m_PercentageOfEnergyLeft;
         private Wheel[] m_Wheels;
         private PowerSource m_PowerSource;

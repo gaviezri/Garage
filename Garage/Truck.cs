@@ -2,8 +2,8 @@ namespace Garage
 {
     internal class Truck : Vehicle
     {
-        private bool m_isDeliveringHazardousMatriels;
-        private int m_TrunkCapacity;
+        private readonly bool m_isDeliveringHazardousMatriels;
+        private readonly int m_TrunkCapacity;
 
         public Truck(string i_Model, string i_LicenseNumber, float i_PercentageOfEnergyLeft, 
             Wheel[] i_Wheels, PowerSource i_PowerSource, bool i_isDeliveringHazardousMatriels, int i_TrunkCapacity) : 

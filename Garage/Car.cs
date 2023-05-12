@@ -2,8 +2,8 @@ namespace Garage
 {
     internal class Car : Vehicle
     {
-        private eColour m_Colour;
-        private eDoorCount m_DoorCount;
+        private readonly eColour m_Colour;
+        private readonly eDoorCount m_DoorCount;
 
         public Car(string i_Model, string i_LicenseNumber, float i_PercentageOfEnergyLeft, 
             Wheel[] i_Wheels, PowerSource i_PowerSource, eColour i_Colour, eDoorCount i_DoorCount) : 
