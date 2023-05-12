@@ -1,3 +1,4 @@
+using System.Threading.Channels;
 using Garage;
 
 namespace UserInterface
@@ -7,11 +8,14 @@ namespace UserInterface
         const string k_LineDeleter = "                                                    \n                                                ";
         const int k_MainMenuFirst = 1;
         const int k_MainMenuLast = 8;
+        const int k_FilterMenuFirst = 1;
+        const int k_FilterMenuLast = 8;
         
         public void StartInteraction()
         {
             GarageManager garageManager = GarageManager.getManager();
             bool isQuit = false;
+            
             while (!isQuit)
             {
                 showMainMenu();
@@ -92,13 +96,14 @@ namespace UserInterface
         private void performAction(GarageManager i_GarageManager, int i_UserInput, out bool o_IsQuit)
         {
             o_IsQuit = false;
+            
             switch (i_UserInput)
             {
                 case 1:
                     insertVehicleToGarage(i_GarageManager);
                     break;
                 case 2:
-                    // listAllVehicles
+                    listAllLicenseNumbers(i_GarageManager);
                     break;
                 case 3:
                     // changeVehicle
@@ -124,6 +129,7 @@ namespace UserInterface
         {
             Console.WriteLine("Please enter a vehicle's license number");
             string inputLicenseNumber = Console.ReadLine();
+            
             try
             {
                 // check if license number exists
@@ -133,6 +139,57 @@ namespace UserInterface
             {
                 
             }
+        }
+
+        private void listAllLicenseNumbers(GarageManager i_GarageManager)
+        {
+            string statusFilter = convertInputToStatus(getStatusFilter());
+            List<string> licenseNumbers = i_GarageManager.GetAllVehiclesLicense(statusFilter);
+            
+            foreach (var licenseNumber in licenseNumbers)
+            {
+                Console.WriteLine(licenseNumber);
+            }
+            
+            pressAnyKeyToContinue();
+        }
+
+        private static int getStatusFilter()
+        {
+            Console.Clear();
+            Console.WriteLine("Choose a status to filter on or choose no filter");
+            Console.WriteLine("1. In service");
+            Console.WriteLine("2. Post service");
+            Console.WriteLine("3. Paid for");
+            Console.WriteLine("4. No filter");
+            Console.Write("Please choose: ");
+            return getUserInput(k_FilterMenuFirst, k_FilterMenuLast);
+        }
+
+        private string convertInputToStatus(int i_InputStatusFilter)
+        {
+            string statusFilter = "";
+            
+            switch (i_InputStatusFilter)
+            {
+                case 1:
+                    statusFilter =  "PreService";
+                    break;
+                case 2:
+                    statusFilter = "PostService";
+                    break;
+                case 3:
+                    statusFilter = "Paid";
+                    break;
+            }
+
+            return statusFilter;
+        }
+
+        private static void pressAnyKeyToContinue()
+        {
+            Console.WriteLine("Press any key to return to main menu");
+            Console.ReadKey(true);
         }
     }
 }
