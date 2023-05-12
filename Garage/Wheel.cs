@@ -13,9 +13,14 @@
             r_MaximumPressure = i_MaximumPressure;  
         }
 
+        internal override bool AmountInRange(float i_Amount)
+        {
+            return i_Amount > 0 && (i_Amount + m_CurrentPressure) < r_MaximumPressure;
+        }
+
         internal void Inflate(float i_Amount)
         {
-            if (Fillable.AmountInRange(i_Amount, m_CurrentPressure, r_MaximumPressure))
+            if (AmountInRange(i_Amount))
             {
                 m_CurrentPressure += i_Amount;
             }

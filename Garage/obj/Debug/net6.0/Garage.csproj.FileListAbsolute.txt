@@ -1,0 +1,5 @@
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Garage\Garage\obj\Debug\net6.0\Garage.csproj.AssemblyReference.cache
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Garage\Garage\obj\Debug\net6.0\Garage.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Garage\Garage\obj\Debug\net6.0\Garage.AssemblyInfoInputs.cache
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Garage\Garage\obj\Debug\net6.0\Garage.AssemblyInfo.cs
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Garage\Garage\obj\Debug\net6.0\Garage.csproj.CoreCompileInputs.cache
