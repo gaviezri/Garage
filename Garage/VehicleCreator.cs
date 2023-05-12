@@ -65,10 +65,10 @@ namespace Garage
             switch (i_Blueprint.PowerSource)
             {
                 case "Electric":
-                    powerSource = new ElectricPowerSource(i_Blueprint.CurrentEnergyLevel, i_Blueprint.MaxEnergyCapacity);
+                    powerSource = new ElectricPowerSource(i_Blueprint.CurrentEnergyLevel, i_Blueprint.GetMaxEnergyCapacity());
                     break;
                 case "Petrol":
-                    powerSource = new PetroleumPowerSource(i_Blueprint.CurrentEnergyLevel, i_Blueprint.MaxEnergyCapacity, i_Blueprint.PetrolType);
+                    powerSource = new PetroleumPowerSource(i_Blueprint.CurrentEnergyLevel, i_Blueprint.GetMaxEnergyCapacity(), i_Blueprint.GetPetrolType());
                     break;
                 default:
                     throw new ArgumentException("Invalid power source");
@@ -78,10 +78,11 @@ namespace Garage
 
         private static Wheel[] createWheels(VehicleCreationBlueprint i_Blueprint)
         {
-            Wheel[] wheels = new Wheel[i_Blueprint.NumOfWheels];
-            for (int i = 0; i < i_Blueprint.NumOfWheels; i++)
+            int numOfWheels = i_Blueprint.GetNumOfWheels();
+            Wheel[] wheels = new Wheel[numOfWheels];
+            for (int i = 0; i < numOfWheels; i++)
             {
-                wheels[i] = new Wheel(i_Blueprint.WheelManufacturer, i_Blueprint.CurrentAirPressure, i_Blueprint.MaxAirPressure);
+                wheels[i] = new Wheel(i_Blueprint.WheelManufacturer, i_Blueprint.CurrentAirPressure, i_Blueprint.GetMaxAirPressure());
             }
             return wheels;
         }

@@ -1,4 +1,6 @@
-﻿namespace Garage
+﻿using System.Text;
+
+namespace Garage
 {
     public class GarageManager
     {
@@ -135,5 +137,26 @@
             }
             throw new VehicleNotExistsException(i_LicenseNum);
         } 
+
+        public string GetVehicleDataByLicenseNum(string i_LicenseNum)
+        {
+           StringBuilder builder = new StringBuilder();
+            VehicleInGarage vehicleInGarage = null;
+            foreach (VehicleInGarage vehicle in m_VehiclesInGarage)
+            {
+                if (vehicle.LicenseNum.Equals(i_LicenseNum))
+                {
+                    vehicleInGarage = vehicle;
+                    break;
+                }
+            }
+            if (vehicleInGarage == null)
+            {
+                throw new VehicleNotExistsException(i_LicenseNum);
+            }
+           
+            return m_LicenseNum2Vehicle[i_LicenseNum].ToString();
+            
+        }
     }
 }

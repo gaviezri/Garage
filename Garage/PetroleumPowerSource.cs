@@ -66,5 +66,13 @@
             }
             return ePet;
         }
+
+        public override string ToString()
+        {
+            return "Petroleum Power Source\n" +
+                   $"Remaining Tank: {m_RemainingTank}\n" +
+                   $"Maximum Tank: {r_MaximumTank}\n" +
+                   $"Petrol Type: {m_Type}";
+        }
     }
 }
