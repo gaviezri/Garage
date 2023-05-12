@@ -25,11 +25,10 @@
             return instance;
         }
 
-        public void UpdateExistingVehicleStatus(string i_LicenseNum,string i_status)
+        public void UpdateExistingVehicleStatus(string i_LicenseNum, string i_status)
         {
             VehicleInGarage.eStatus newStatus = VehicleInGarage.eStatusFromString(i_status);
-
-
+            
             foreach (VehicleInGarage vehicle in m_VehiclesInGarage)
             {
                 if (vehicle.LicenseNum.Equals(i_LicenseNum))
@@ -61,13 +60,12 @@
                     eFilter =null;
                     break;
             }
+            
             return getVehiclesByFilter(eFilter);
-
         }
 
         private List<string> getVehiclesByFilter(VehicleInGarage.eStatus? filter)
         {
-            
             List<string> result = new List<string>();
             foreach (VehicleInGarage vehicle in m_VehiclesInGarage)
             {
@@ -76,6 +74,7 @@
                     result.Append(vehicle.LicenseNum);
                 }
             }
+            
             return result;
         }
 
@@ -96,6 +95,7 @@
         public void FillTankWithQuantity(string i_LicenseNum, float i_Quantity, string i_FuelType)
         {
             PetroleumPowerSource.ePetrolType ePetroltype = PetroleumPowerSource.PetrolTypeFromString(i_FuelType);
+            
             m_LicenseNum2Vehicle.TryGetValue(i_LicenseNum, out var vehicle);
             if (vehicle != null )
             {

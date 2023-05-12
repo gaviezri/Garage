@@ -9,7 +9,9 @@ namespace UserInterface
         const int k_MainMenuFirst = 1;
         const int k_MainMenuLast = 8;
         const int k_FilterMenuFirst = 1;
-        const int k_FilterMenuLast = 8;
+        const int k_FilterMenuLast = 4;
+        const int k_StatusMenuFirst = 1;
+        const int k_StatusMenuLast = 3;
         
         public void StartInteraction()
         {
@@ -106,7 +108,7 @@ namespace UserInterface
                     listAllLicenseNumbers(i_GarageManager);
                     break;
                 case 3:
-                    // changeVehicle
+                    changeExistingVehicleStatus(i_GarageManager);
                     break;
                 case 4:
                     // inflateTyreToMax
@@ -165,15 +167,26 @@ namespace UserInterface
             Console.Write("Please choose: ");
             return getUserInput(k_FilterMenuFirst, k_FilterMenuLast);
         }
+        
+        private static string getStatus()
+        {
+            Console.Clear();
+            Console.WriteLine("Choose a status:");
+            Console.WriteLine("1. In service");
+            Console.WriteLine("2. Post service");
+            Console.WriteLine("3. Paid for");
+            Console.Write("Please choose: ");
+            return convertInputToStatus(getUserInput(k_StatusMenuFirst, k_StatusMenuLast));
+        }
 
-        private string convertInputToStatus(int i_InputStatusFilter)
+        private static string convertInputToStatus(int i_InputStatusFilter)
         {
             string statusFilter = "";
             
             switch (i_InputStatusFilter)
             {
                 case 1:
-                    statusFilter =  "PreService";
+                    statusFilter = "PreService";
                     break;
                 case 2:
                     statusFilter = "PostService";
@@ -184,6 +197,40 @@ namespace UserInterface
             }
 
             return statusFilter;
+        }
+
+        private void changeExistingVehicleStatus(GarageManager i_GarageManager)
+        {
+            int originalCursorLeft = Console.CursorLeft;
+            int originalCursorTop = Console.CursorTop;
+            string licenseNumber = Console.ReadLine();
+            Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
+            Console.Write(k_LineDeleter);
+            Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
+            Console.WriteLine("License Number not existing for a vehicle in garage");
+            Console.Write("Please try again: ");
+            licenseNumber = Console.ReadLine();
+
+
+            string validLicenseNumber = "";
+            string newStatus = getStatus();
+            try
+            {
+                i_GarageManager.UpdateExistingVehicleStatus(licenseNumber, newStatus);
+            }
+            catch (ArgumentException exception)
+            {
+                
+            }
+            
+            Console.WriteLine("Status changed successfully!");
+            pressAnyKeyToContinue();
+        }
+
+        private string getLicenseNumber()
+        {
+            Console.WriteLine("Please enter a vehicle's license number");
+            return Console.ReadLine();
         }
 
         private static void pressAnyKeyToContinue()
