@@ -98,7 +98,6 @@ namespace UserInterface
         private void performAction(GarageManager i_GarageManager, int i_UserInput, out bool o_IsQuit)
         {
             o_IsQuit = false;
-            
             switch (i_UserInput)
             {
                 case 1:
@@ -111,13 +110,13 @@ namespace UserInterface
                     changeExistingVehicleStatus(i_GarageManager);
                     break;
                 case 4:
-                    // inflateTyreToMax
+                    inflateTyresToMaximum(i_GarageManager);
                     break;
                 case 5:
-                    // fillGasVehicle
+                    fillGasTankWithQuantity(i_GarageManager);
                     break;
                 case 6:
-                    // chargeElectricVehicle
+                    chargeBatteryWithQuantity(i_GarageManager);
                     break;
                 case 7:
                     // showVehicleDetails
@@ -134,10 +133,9 @@ namespace UserInterface
             
             try
             {
-                // check if license number exists
-                // else insert
+                changeExistingVehicleStatus(i_GarageManager, "PreService");
             }
-            catch (Exception e)
+            catch (VehicleNotExistsException exception)
             {
                 
             }
@@ -156,6 +154,90 @@ namespace UserInterface
             pressAnyKeyToContinue();
         }
 
+        private void inflateTyresToMaximum(GarageManager i_GarageManager)
+        {
+            int originalCursorLeft = Console.CursorLeft;
+            int originalCursorTop = Console.CursorTop;
+            string licenseNumber;
+            
+            while (true)
+            {
+                try
+                {
+                    licenseNumber = getLicenseNumber();
+                    i_GarageManager.InflateTyresToMaximum(licenseNumber);
+                    break;
+                }
+                catch (VehicleNotExistsException exception)
+                {
+                    resetInput(originalCursorLeft, originalCursorTop);
+                    Console.WriteLine(exception.Message);
+                    Console.WriteLine("Please try again:");
+                }
+            }
+            
+            Console.WriteLine("Tyres inflated successfully!");
+            pressAnyKeyToContinue();
+        }
+
+        private void fillGasTankWithQuantity(GarageManager i_GarageManager)
+        {
+            int originalCursorLeft = Console.CursorLeft;
+            int originalCursorTop = Console.CursorTop;
+            string licenseNumber;
+            float quantityToFill;
+            string fuelType;
+            
+            while (true)
+            {
+                try
+                {
+                    licenseNumber = getLicenseNumber();
+                    quantityToFill = getGasQuantity();
+                    fuelType = getFuelType();
+                    i_GarageManager.FillTankWithQuantity(licenseNumber, quantityToFill, fuelType);
+                    break;
+                }
+                catch (Exception exception)
+                {
+                    resetInput(originalCursorLeft, originalCursorTop);
+                    Console.WriteLine(exception.Message);
+                    Console.WriteLine("Please try again:");
+                }
+            }
+            
+            Console.WriteLine("Gas tank filled successfully!");
+            pressAnyKeyToContinue();
+        }
+        
+        private void chargeBatteryWithQuantity(GarageManager i_GarageManager)
+        {
+            int originalCursorLeft = Console.CursorLeft;
+            int originalCursorTop = Console.CursorTop;
+            string licenseNumber;
+            float quantityToCharge;
+
+            while (true)
+            {
+                try
+                {
+                    licenseNumber = getLicenseNumber();
+                    quantityToCharge = getQuantityToCharge();
+                    i_GarageManager.ChargeBatteryWithQuantity(licenseNumber, quantityToCharge);
+                    break;
+                }
+                catch (Exception exception)
+                {
+                    resetInput(originalCursorLeft, originalCursorTop);
+                    Console.WriteLine(exception.Message);
+                    Console.WriteLine("Please try again:");
+                }
+            }
+            
+            Console.WriteLine("Gas tank filled successfully!");
+            pressAnyKeyToContinue();
+        }
+
         private static int getStatusFilter()
         {
             Console.Clear();
@@ -164,7 +246,6 @@ namespace UserInterface
             Console.WriteLine("2. Post service");
             Console.WriteLine("3. Paid for");
             Console.WriteLine("4. No filter");
-            Console.Write("Please choose: ");
             return getUserInput(k_FilterMenuFirst, k_FilterMenuLast);
         }
         
@@ -175,7 +256,6 @@ namespace UserInterface
             Console.WriteLine("1. In service");
             Console.WriteLine("2. Post service");
             Console.WriteLine("3. Paid for");
-            Console.Write("Please choose: ");
             return convertInputToStatus(getUserInput(k_StatusMenuFirst, k_StatusMenuLast));
         }
 
@@ -199,38 +279,96 @@ namespace UserInterface
             return statusFilter;
         }
 
-        private void changeExistingVehicleStatus(GarageManager i_GarageManager)
+        private void changeExistingVehicleStatus(GarageManager i_GarageManager, string i_Status="")
         {
             int originalCursorLeft = Console.CursorLeft;
             int originalCursorTop = Console.CursorTop;
-            string licenseNumber = Console.ReadLine();
-            Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
-            Console.Write(k_LineDeleter);
-            Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
-            Console.WriteLine("License Number not existing for a vehicle in garage");
-            Console.Write("Please try again: ");
-            licenseNumber = Console.ReadLine();
+            string licenseNumber;
+            string newStatus;
 
+            while (true)
+            {
+                try
+                {
+                    licenseNumber = getLicenseNumber();
+                    if (i_Status != "")
+                    {
+                        newStatus = getStatus();
+                    }
+                    else
+                    {
+                        newStatus = i_Status;
+                    }
 
-            string validLicenseNumber = "";
-            string newStatus = getStatus();
-            try
-            {
-                i_GarageManager.UpdateExistingVehicleStatus(licenseNumber, newStatus);
-            }
-            catch (ArgumentException exception)
-            {
-                
+                    i_GarageManager.UpdateExistingVehicleStatus(licenseNumber, newStatus);
+                    break;
+                }
+                catch (VehicleNotExistsException exception)
+                {
+                    if (i_Status != "")
+                    {
+                        throw exception;
+                    }
+                    
+                    resetInput(originalCursorLeft, originalCursorTop);
+                    Console.WriteLine(exception.Message);
+                    Console.WriteLine("Please try again:");
+                }
+                catch (Exception exception)
+                {
+                    resetInput(originalCursorLeft, originalCursorTop);
+                    Console.WriteLine(exception.Message);
+                    Console.WriteLine("Please try again:");
+                }
             }
             
             Console.WriteLine("Status changed successfully!");
             pressAnyKeyToContinue();
         }
 
-        private string getLicenseNumber()
+        private static string getLicenseNumber()
         {
-            Console.WriteLine("Please enter a vehicle's license number");
+            Console.WriteLine("Please enter a vehicle's license number:");
             return Console.ReadLine();
+        }
+        
+        private static string getFuelType()
+        {
+            Console.WriteLine("Please enter fuel type:");
+            return Console.ReadLine();
+        }
+
+        private static float getGasQuantity()
+        {
+            Console.WriteLine("Please enter amount of gas:");
+            string quantityInput =  Console.ReadLine();
+
+            if (!float.TryParse(quantityInput, out float gasQuantity))
+            {
+                gasQuantity = -1;
+            }
+
+            return gasQuantity;
+        }
+        
+        private static float getQuantityToCharge()
+        {
+            Console.WriteLine("Please enter amount of time in minutes to charge:");
+            string quantityInput =  Console.ReadLine();
+
+            if (!float.TryParse(quantityInput, out float gasQuantity))
+            {
+                gasQuantity = -1;
+            }
+
+            return gasQuantity;
+        }
+
+        private static void resetInput(int i_OriginalCursorLeft, int i_OriginalCursorTop)
+        {
+            Console.SetCursorPosition(i_OriginalCursorLeft, i_OriginalCursorTop);
+            Console.Write(k_LineDeleter);
+            Console.SetCursorPosition(i_OriginalCursorLeft, i_OriginalCursorTop);
         }
 
         private static void pressAnyKeyToContinue()
