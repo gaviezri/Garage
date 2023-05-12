@@ -74,5 +74,11 @@ namespace Garage
             Four,
             Five
         }
+
+        public override string ToString()
+        {
+
+            return "Car" + $"\nColour: {r_Colour}\nDoor Count: {r_DoorCount}\n" + base.ToString();
+        }
     }
 }

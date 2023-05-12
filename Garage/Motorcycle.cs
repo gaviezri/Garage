@@ -43,6 +43,14 @@ namespace Garage
             AA,
             B1
         }
+
+        public override string ToString()
+        {
+            return "Motorcycle" + 
+                   $"\nLicense type: {r_LicenseType}" +
+                   $"\nEngine capacity: {r_EngineCapacity}\n" +
+                   base.ToString();
+        }
     }
 }
 

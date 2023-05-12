@@ -1,4 +1,6 @@
-﻿namespace Garage
+﻿using System.Runtime.CompilerServices;
+
+namespace Garage
 {
     internal class Wheel : Fillable
     {
@@ -30,5 +32,11 @@
             }
         }
         internal float  GetPressureDeltaFromMaximum() { return r_MaximumPressure-m_CurrentPressure;}
+
+        public override string ToString()
+        {
+            return $"\nManufactured By: {m_Manufacturer}\nPressure: {m_CurrentPressure}\nMax Pressure: {r_MaximumPressure}";
+        }
     }
+
 }

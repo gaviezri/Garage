@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Garage
 {
     internal abstract class Vehicle
@@ -36,6 +38,16 @@ namespace Garage
             {
                 wheelAndAmountToInflate.Key.Inflate(wheelAndAmountToInflate.Value);
             }
+        }
+
+        public override string ToString()
+        {   
+            StringBuilder sb = new StringBuilder();
+            foreach (Wheel wheel in m_Wheels)
+            {
+                sb.AppendLine(wheel.ToString());
+            }
+            return $"Model: {r_Model}\nLicense No.: {r_LicenseNumber}\nWheels info:\n{sb}\n {m_PowerSource}";
         }
     }
 }
