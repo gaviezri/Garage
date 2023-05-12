@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "UserInterface/1.0.0": {
+        "dependencies": {
+          "Garage": "1.0.0"
+        },
+        "runtime": {
+          "UserInterface.dll": {}
+        }
+      },
+      "Garage/1.0.0": {
+        "runtime": {
+          "Garage.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "UserInterface/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Garage/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

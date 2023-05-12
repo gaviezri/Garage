@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "Garage/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Garage.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Garage.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Garage/1.0.0": {
+      "type": "project",
+      "path": "../Garage/Garage.csproj",
+      "msbuildProject": "../Garage/Garage.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "Garage >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\gavie\\.nuget\\packages\\": {}
@@ -33,7 +52,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\gavie\\OneDrive\\Desktop\\MTA\\3rd Year\\semester 2\\C#\\Garage\\Garage\\Garage.csproj": {
+              "projectPath": "C:\\Users\\gavie\\OneDrive\\Desktop\\MTA\\3rd Year\\semester 2\\C#\\Garage\\Garage\\Garage.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
