@@ -107,9 +107,9 @@ namespace Garage
             set { data.Add("CurrentEnergyLevel", value); }
         }
 
-        public ePetrolType PetrolType
+        public string PetrolType
         {
-            get { return data["PetrolType"]; }
+            get { return (string)data["PetrolType"]; }
             set { data.Add("PetrolType", PetrolTypeFromString(value)); }
         }
 
