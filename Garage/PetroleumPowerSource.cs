@@ -16,11 +16,11 @@
 
         public ePetrolType PetrolType { get { return m_Type; } }
 
-        internal PetroleumPowerSource(float i_RemainingTank, float i_MaximumTank, ePetrolType i_Type)
+        internal PetroleumPowerSource(float i_RemainingTank, float i_MaximumTank, string i_Type)
         {
             m_RemainingTank = i_RemainingTank;
             r_MaximumTank = i_MaximumTank;
-            m_Type = i_Type;
+            m_Type = PetrolTypeFromString(i_Type);
         }
 
         internal override bool AmountInRange(float i_Amount)
