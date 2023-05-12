@@ -22,7 +22,7 @@ namespace Garage
         {
             try
             {
-                m_PowerSource.fill(i_AmountToFile);
+                m_PowerSource.Fill(i_AmountToFile);
             }
             catch (ValueOutOfRangeException exception)
             {
