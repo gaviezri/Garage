@@ -32,14 +32,6 @@ namespace Garage
             set { data.Add("Model", value); }
         }
 
-
-        //public float MaxAirPressure
-        //{
-        //    get { return (float)data["MaxAirPressure"]; }
-        //    set { data.Add("MaxAirPressure", value); }
-        //}
-
-
         public float CurrentAirPressure
         {
             get { return (float)data["CurrentAirPressure"]; }
@@ -60,31 +52,31 @@ namespace Garage
 
         public string VehicleType
         {
-            get { return (string)data["VehicleType"]; }
+            get { return data["VehicleType"].ToString(); }
             set { data.Add("VehicleType", VehicleTypeFromString(value)); }
         }
 
         public string PowerSource
         {
-            get { return (string)data["PowerSource"]; }
+            get { return data["PowerSource"].ToString(); }
             set { data.Add("PowerSource", PowerSourceFromString(value)); }
         }
 
         public string CarColour
         {
-            get { return (string)data["CarColour"]; }
+            get { return data["CarColour"].ToString(); }
             set { data.Add("CarColour", ColourFromString(value)); }
         }
 
         public string CarDoorCount
         {
-            get { return (string)data["CarDoorCount"]; }
+            get { return data["CarDoorCount"].ToString(); }
             set { data.Add("CarDoorCount", DoorCountFromString(value)); }
         }
 
         public string MotorcycleLicenseType
         {
-            get { return (string)data["MotorcycleLicenseType"]; }
+            get { return data["MotorcycleLicenseType"].ToString(); }
             set { data.Add("MotorcycleLicenseType", LicenseTypeFromString(value)); }
         }
        
@@ -102,7 +94,7 @@ namespace Garage
         
         public float TruckTrunkCapacity
         {
-            get { return (int)data["TruckTrunkCapacity"]; }
+            get { return (float)data["TruckTrunkCapacity"]; }
             set { data.Add("TruckTrunkCapacity", value); }
 
         }
@@ -117,6 +109,11 @@ namespace Garage
         {
             get { return (string)data["OwnerName"]; }
             set { data.Add("OwnerName", value); }
+        }
+
+        public void resetData()
+        {
+            data = new();
         }
         
         public string GetPetrolType()
@@ -193,6 +190,24 @@ namespace Garage
         private float getCapacityBasedOnEnergy(float i_PetrolValue, float i_ElectricValue)
         {
             return data["PowerSource"].Equals(ePowerSource.Petrol) ? i_PetrolValue : i_ElectricValue;
+        }
+
+        public void EnsureNotExceedingMaxValues()
+        {
+            float maxAirPressure = GetMaxAirPressure();
+            float maxEnergyLevel = GetMaxEnergyCapacity();
+            
+            if (CurrentAirPressure > maxAirPressure)
+            {
+                throw new ArgumentException(
+                    string.Format("Current wheel air pressure - {0} exceeding the maximum of {1}", CurrentAirPressure, maxAirPressure));
+            }
+            
+            if (CurrentEnergyLevel > maxEnergyLevel)
+            {
+                throw new ArgumentException(
+                    string.Format("Current energy level remaining - {0} exceeding the maximum of {1}", CurrentEnergyLevel, maxEnergyLevel));
+            }
         }
         
         public float GetMaxAirPressure()

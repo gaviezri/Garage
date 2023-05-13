@@ -22,10 +22,6 @@ namespace UserInterface
                 showMainMenu();
                 int userInput = getUserInput(k_MainMenuFirst, k_MainMenuLast);
                 performAction(garageManager, userInput, out isQuit);
-                switch (userInput)
-                {
-                    
-                }
             }
         }
 
@@ -152,12 +148,15 @@ namespace UserInterface
                     getVehicleDetialsAccoringToType(vehicleBlueprint);
                     getEnergyRelatedDetails(vehicleBlueprint);
                     getWheelDetails(vehicleBlueprint);
+                    vehicleBlueprint.EnsureNotExceedingMaxValues();
                     break;
                 }
                 catch (ArgumentException exception)
                 {
+                    vehicleBlueprint.resetData();
+                    vehicleBlueprint.License = i_LicenseNumber;
                     Console.WriteLine(exception.Message);
-                    Console.WriteLine("Please try again:");
+                    Console.WriteLine("Entering vehicle details again:");
                 }
             }
             
@@ -323,7 +322,7 @@ namespace UserInterface
                 }
             }
             
-            Console.WriteLine("Gas tank filled successfully!");
+            Console.WriteLine("Battery charged successfully!");
             pressAnyKeyToContinue();
         }
 
@@ -396,7 +395,7 @@ namespace UserInterface
                 {
                     if (i_Status != "")
                     {
-                        throw new VehicleNotExistsException(licenseNumber);
+                        throw new VehicleNotExistsException(licenseNumber, true);
                     }
                     
                     resetInput(originalCursorLeft, originalCursorTop);
@@ -448,6 +447,7 @@ namespace UserInterface
 
             if (wantedVehicle != "")
             {
+                Console.WriteLine("Vehicle details:");
                 Console.WriteLine(wantedVehicle);
             }
             

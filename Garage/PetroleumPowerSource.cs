@@ -25,7 +25,7 @@
 
         internal override bool AmountInRange(float i_Amount)
         {
-            return i_Amount > 0 && (i_Amount + m_RemainingTank) < r_MaximumTank;
+            return i_Amount > 0 && (i_Amount + m_RemainingTank) <= r_MaximumTank;
         }
         internal override void Fill(float i_Amount)
         {
@@ -35,7 +35,7 @@
             }
             else
             {
-                throw new ValueOutOfRangeException(0, m_RemainingTank);
+                throw new ValueOutOfRangeException(0, GetDeltaFromFullCapacity());
             }
         }
 
@@ -62,7 +62,7 @@
                     ePet = ePetrolType.Octan98;
                     break;
                 default:
-                    throw new ArgumentException($"ePetrolType is not parseable from \"{str}\"");
+                    throw new ArgumentException($"Invalid petrol type, options: (Soler, Octan95, Octan96, Octan98)");
             }
             return ePet;
         }
