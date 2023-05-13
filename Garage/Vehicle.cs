@@ -47,7 +47,7 @@ namespace Garage
             {
                 sb.AppendLine(wheel.ToString());
             }
-            return $"Model: {r_Model}\nLicense No.: {r_LicenseNumber}\nWheels info:\n{sb}\n {m_PowerSource}";
+            return $"Model: {r_Model}\nLicense No.: {r_LicenseNumber}\nWheels details:\n{sb}\n{m_PowerSource}";
         }
     }
 }

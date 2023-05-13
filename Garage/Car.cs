@@ -16,18 +16,18 @@ namespace Garage
         internal static eColour ColourFromString(string i_Colour)
         {
             eColour colour;
-            switch(i_Colour)
+            switch(i_Colour.ToLower())
             {
-                case "White":
+                case "white":
                     colour = eColour.White;
                     break;
-                case "Black":
+                case "black":
                     colour = eColour.Black;
                     break;
-                case "Yellow":
+                case "yellow":
                     colour = eColour.Yellow;
                     break;
-                case "Red":
+                case "red":
                     colour = eColour.Red;
                     break;
                 default:
@@ -42,15 +42,19 @@ namespace Garage
             switch(i_DoourCount)
             {
                 case "Two":
+                case "2":
                     doorCount = eDoorCount.Two;
                     break;
                 case "Three":
+                case "3":
                     doorCount = eDoorCount.Three;
                     break;
                 case "Four":
+                case "4":
                     doorCount = eDoorCount.Four;
                     break;
                 case "Five":
+                case "5":
                     doorCount = eDoorCount.Five;
                     break;
                 default:

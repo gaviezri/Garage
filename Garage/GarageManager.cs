@@ -66,7 +66,7 @@ namespace Garage
                     eFilter = VehicleInGarage.eStatus.Paid;
                     break;
                 default:
-                    eFilter =null;
+                    eFilter = null;
                     break;
             }
             
@@ -78,9 +78,9 @@ namespace Garage
             List<string> result = new List<string>();
             foreach (VehicleInGarage vehicle in m_VehiclesInGarage)
             {
-                if (vehicle.Status == filter)
+                if (vehicle.Status == filter || filter == null)
                 {
-                    result.Append(vehicle.LicenseNum);
+                    result.Add(vehicle.LicenseNum);
                 }
             }
             
@@ -104,8 +104,6 @@ namespace Garage
 
         public void FillTankWithQuantity(string i_LicenseNum, float i_Quantity, string i_FuelType)
         {
-            PetroleumPowerSource.ePetrolType ePetroltype = PetroleumPowerSource.PetrolTypeFromString(i_FuelType);
-            
             m_LicenseNum2Vehicle.TryGetValue(i_LicenseNum, out var vehicle);
             if (vehicle != null )
             {
@@ -113,6 +111,8 @@ namespace Garage
                 {
                     throw new ArgumentException($"The vehicle with license no. {i_LicenseNum} is not a petroleum powered vehicle!");
                 }
+                
+                PetroleumPowerSource.ePetrolType ePetroltype = PetroleumPowerSource.PetrolTypeFromString(i_FuelType);
                 
                 PetroleumPowerSource.ePetrolType ePetType = (vehicle.Powersource as PetroleumPowerSource).PetrolType;
                 if (ePetType.Equals(ePetroltype) == false)
@@ -129,15 +129,17 @@ namespace Garage
 
         public void ChargeBatteryWithQuantity(string i_LicenseNum, float i_Quantity)
         {
+            float timeInHours = i_Quantity / 60;
+            
             m_LicenseNum2Vehicle.TryGetValue(i_LicenseNum, out var vehicle);
             if (vehicle != null )
             {
-                if (vehicle.Powersource.GetType().Name.Equals("EnergyPowerSource") == false)
+                if (vehicle.Powersource.GetType().Name.Equals("ElectricPowerSource") == false)
                 {
                     throw new ArgumentException($"The vehicle with license no. {i_LicenseNum} is not an electric powered vehicle!");
                 }
 
-                vehicle.Powersource.Fill(i_Quantity);
+                vehicle.Powersource.Fill(timeInHours);
                 return;
             }
             

@@ -17,7 +17,7 @@ namespace Garage
 
         internal override bool AmountInRange(float i_Amount)
         {
-            return i_Amount > 0 && (i_Amount + m_CurrentPressure) < r_MaximumPressure;
+            return i_Amount > 0 && (i_Amount + m_CurrentPressure) <= r_MaximumPressure;
         }
 
         internal void Inflate(float i_Amount)
@@ -31,7 +31,7 @@ namespace Garage
                 throw new ValueOutOfRangeException(0, r_MaximumPressure - m_CurrentPressure);
             }
         }
-        internal float  GetPressureDeltaFromMaximum() { return r_MaximumPressure-m_CurrentPressure;}
+        internal float  GetPressureDeltaFromMaximum() { return r_MaximumPressure - m_CurrentPressure;}
 
         public override string ToString()
         {

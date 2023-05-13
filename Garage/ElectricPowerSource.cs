@@ -13,7 +13,7 @@
 
         internal override bool AmountInRange(float i_Amount)
         {
-            return i_Amount > 0 && (m_RemainingBattery + i_Amount) < r_MaximumBattery;
+            return i_Amount > 0 && (m_RemainingBattery + i_Amount) <= r_MaximumBattery;
         }
 
         internal override void Fill(float i_Amount)
@@ -24,7 +24,7 @@
             }
             else
             {
-                throw new ValueOutOfRangeException(0, m_RemainingBattery);
+                throw new ValueOutOfRangeException(0, m_RemainingBattery * 60);
             }
         }
 
