@@ -168,7 +168,9 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter owner name:");
             i_VehicleBlueprint.OwnerName = Console.ReadLine();
             Console.WriteLine("Please enter owner's phone number:");
-            i_VehicleBlueprint.OwnerPhone = Console.ReadLine();
+            string inputPhoneNumber = Console.ReadLine();
+            ensureAllDigits(inputPhoneNumber);
+            i_VehicleBlueprint.OwnerPhone = inputPhoneNumber;
             Console.WriteLine("Please enter engine type (Electric or Petrol):");
             i_VehicleBlueprint.PowerSource = Console.ReadLine();
             Console.WriteLine("Please enter vehicle type (Car, Motorcycle or Truck):");
@@ -227,6 +229,14 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter wheel air pressure once to applied to all tyres");
             int.TryParse(Console.ReadLine(), out int currentWheelAirPressure);
             i_VehicleBlueprint.CurrentAirPressure = currentWheelAirPressure;
+        }
+
+        private static void ensureAllDigits(string i_InputNumber)
+        {
+            if (!i_InputNumber.All(char.IsDigit))
+            {
+                throw new ArgumentException("Invalid phone number. Must only contain digits.");
+            }
         }
 
         private void listAllLicenseNumbers(GarageManager i_GarageManager)
