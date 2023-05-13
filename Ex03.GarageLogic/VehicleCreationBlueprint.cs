@@ -1,8 +1,7 @@
-﻿using static Garage.Car;
-using static Garage.PetroleumPowerSource;
-using static Garage.Motorcycle;
+﻿using static Ex03.GarageLogic.Car;
+using static Ex03.GarageLogic.Motorcycle;
 
-namespace Garage
+namespace Ex03.GarageLogic
 {
     public class VehicleCreationBlueprint
     {

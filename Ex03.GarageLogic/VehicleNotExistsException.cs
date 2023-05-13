@@ -1,4 +1,4 @@
-﻿namespace Garage
+﻿namespace Ex03.GarageLogic
 {
     public class VehicleNotExistsException : Exception
     {
