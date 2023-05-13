@@ -43,10 +43,12 @@ namespace Ex03.GarageLogic
         public override string ToString()
         {   
             StringBuilder sb = new StringBuilder();
+
             foreach (Wheel wheel in m_Wheels)
             {
                 sb.AppendLine(wheel.ToString());
             }
+
             return $"Model: {r_Model}\nLicense No.: {r_LicenseNumber}\nWheels details:\n{sb}\n{m_PowerSource}";
         }
     }

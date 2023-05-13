@@ -32,10 +32,10 @@
             m_Status = eStatus.PreService;
         }
         
-        internal static eStatus eStatusFromString(string str)
+        internal static eStatus eStatusFromString(string i_StringToConvert)
         {   
             eStatus value;
-            switch (str)
+            switch (i_StringToConvert)
             {
                 case "PreService":
                     value = eStatus.PreService;
@@ -47,7 +47,7 @@
                     value = eStatus.Paid;
                     break;
                 default:
-                    throw new ArgumentException(string.Format("eStatus is not parseable from {0}", str));
+                    throw new ArgumentException(string.Format("eStatus is not parseable from {0}", i_StringToConvert));
             }
             return value;
         }

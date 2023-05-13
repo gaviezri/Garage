@@ -12,8 +12,8 @@ namespace Ex03.GarageLogic
             m_MaxValue = i_MaxValue;
         }
 
-        public ValueOutOfRangeException(string message, Exception inner)
-            : base(message, inner)
+        public ValueOutOfRangeException(string i_Message, Exception i_Inner)
+            : base(i_Message, i_Inner)
         {
         }
     }

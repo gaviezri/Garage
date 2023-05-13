@@ -47,6 +47,7 @@
         internal static ePetrolType PetrolTypeFromString(string str)
         {
             ePetrolType ePet;
+
             switch(str.ToLower())
             {
                 case "soler":
@@ -64,6 +65,7 @@
                 default:
                     throw new ArgumentException($"Invalid petrol type, options: (Soler, Octan95, Octan96, Octan98)");
             }
+
             return ePet;
         }
 

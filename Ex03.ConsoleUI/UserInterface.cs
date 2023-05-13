@@ -93,6 +93,7 @@ namespace Ex03.ConsoleUI
         private void performAction(GarageManager i_GarageManager, int i_UserInput, out bool o_IsQuit)
         {
             o_IsQuit = false;
+
             switch (i_UserInput)
             {
                 case 1:
@@ -139,6 +140,7 @@ namespace Ex03.ConsoleUI
         private VehicleCreationBlueprint createVehicleBlueprint(string i_LicenseNumber)
         {
             VehicleCreationBlueprint vehicleBlueprint = new VehicleCreationBlueprint();
+
             vehicleBlueprint.License = i_LicenseNumber;
             while (true)
             {

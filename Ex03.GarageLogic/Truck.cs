@@ -6,10 +6,10 @@ namespace Ex03.GarageLogic
         private readonly float r_TrunkCapacity;
 
         internal Truck(string i_Model, string i_LicenseNumber, Wheel[] i_Wheels,
-            PowerSource i_PowerSource, bool i_isDeliveringHazardousMaterials, float i_TrunkCapacity) : 
+            PowerSource i_PowerSource, bool i_IsDeliveringHazardousMaterials, float i_TrunkCapacity) : 
             base(i_Model, i_LicenseNumber, i_Wheels, i_PowerSource)
         {
-            r_isDeliveringHazardousMaterials = i_isDeliveringHazardousMaterials;
+            r_isDeliveringHazardousMaterials = i_IsDeliveringHazardousMaterials;
             r_TrunkCapacity = i_TrunkCapacity;
         }
 

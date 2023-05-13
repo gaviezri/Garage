@@ -118,6 +118,7 @@ namespace Ex03.GarageLogic
         public string GetPetrolType()
         {
             string petrolType = string.Empty;
+
             switch (data["VehicleType"])
             {
                 case eVehicleType.Car:
@@ -130,12 +131,14 @@ namespace Ex03.GarageLogic
                     petrolType = "Soler";
                     break;
             }
+
             return petrolType;
         }
         
         public float GetMaxEnergyCapacity()
         {
             float maxEnergyCapacity = 0;
+
             switch (data["VehicleType"])
             {
                 case eVehicleType.Car:
@@ -148,12 +151,14 @@ namespace Ex03.GarageLogic
                     maxEnergyCapacity = 135;
                     break;
             }
+
             return maxEnergyCapacity;
         }
         
         public static bool isDeliveringHazardousMaterialsFromString(string i_Input)
         {
             bool isDeliveringHazardousMaterials = false;
+
             switch (i_Input.ToLower())
             {
                 case "yes":
@@ -172,6 +177,7 @@ namespace Ex03.GarageLogic
         public static ePowerSource PowerSourceFromString(string i_PowerSource)
         {
             ePowerSource powerSource;
+
             switch (i_PowerSource.ToLower())
             {
                 case "electric":
@@ -183,6 +189,7 @@ namespace Ex03.GarageLogic
                 default:
                     throw new ArgumentException("Invalid power source");
             }
+
             return powerSource;
         }
         
@@ -212,6 +219,7 @@ namespace Ex03.GarageLogic
         public float GetMaxAirPressure()
         {
             float maxAirPressure = 0;
+
             switch (data["VehicleType"])
             {
                 case eVehicleType.Car:
@@ -224,12 +232,14 @@ namespace Ex03.GarageLogic
                     maxAirPressure = 26;
                     break;
             }
+
             return maxAirPressure;
         }
         
         public int GetNumOfWheels()
         {
             int numOfWheels = 0;
+
             switch (data["VehicleType"])
             {
                 case eVehicleType.Car:
@@ -242,12 +252,14 @@ namespace Ex03.GarageLogic
                     numOfWheels = 14;
                     break;
             }
+
             return numOfWheels;
         }
 
         public static eVehicleType VehicleTypeFromString(string i_VehicleType)
         {
             eVehicleType vehicleType;
+
             switch (i_VehicleType.ToLower())
             {
                 case "car":
@@ -262,6 +274,7 @@ namespace Ex03.GarageLogic
                 default:
                     throw new ArgumentException("Invalid vehicle type");
             }
+
             return vehicleType;
         }
     }   

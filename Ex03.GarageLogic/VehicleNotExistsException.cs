@@ -5,7 +5,7 @@
         public VehicleNotExistsException(string i_LicenseNum) :
             base($"Vehicle with License No. {i_LicenseNum} does not exist in the garage.") { }
 
-        public VehicleNotExistsException(string i_LicenseNUm, bool showLicense) :
+        public VehicleNotExistsException(string i_LicenseNUm, bool i_ShowLicense) :
             base(i_LicenseNUm) {}
     }
 }

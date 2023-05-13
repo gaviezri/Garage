@@ -5,10 +5,10 @@
         private float m_RemainingBattery { get; set; }
         private readonly float r_MaximumBattery;
 
-        internal ElectricPowerSource(float i_remainingBattery, float i_maximumBattery)
+        internal ElectricPowerSource(float i_RemainingBattery, float i_MaximumBattery)
         {
-            m_RemainingBattery = i_remainingBattery;
-            r_MaximumBattery = i_maximumBattery;
+            m_RemainingBattery = i_RemainingBattery;
+            r_MaximumBattery = i_MaximumBattery;
         }
 
         internal override bool AmountInRange(float i_Amount)

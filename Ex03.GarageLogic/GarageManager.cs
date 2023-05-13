@@ -7,7 +7,7 @@
         Dictionary<string, Vehicle> m_LicenseNum2Vehicle;
 
         /// <summary>
-        /// implements the singleton dp
+        /// Implements the singleton design pattern
         ///  to interact with the manager, use getManager to obtain a reference
         /// </summary>
         private GarageManager()
@@ -26,9 +26,9 @@
             return instance;
         }
 
-        public void UpdateExistingVehicleStatus(string i_LicenseNum, string i_status)
+        public void UpdateExistingVehicleStatus(string i_LicenseNum, string i_Status)
         {
-            VehicleInGarage.eStatus newStatus = VehicleInGarage.eStatusFromString(i_status);
+            VehicleInGarage.eStatus newStatus = VehicleInGarage.eStatusFromString(i_Status);
             
             foreach (VehicleInGarage vehicle in m_VehiclesInGarage)
             {
@@ -38,6 +38,7 @@
                     return;
                 }
             }
+
             throw new VehicleNotExistsException(i_LicenseNum);
         }
 
@@ -45,6 +46,7 @@
         {
             Vehicle newVehicle = VehicleCreator.CreateVehicle(i_Blueprint);
             VehicleInGarage newVehicleInGarage = new VehicleInGarage(i_Blueprint.OwnerName, i_Blueprint.OwnerPhone, i_Blueprint.License);
+            
             m_VehiclesInGarage.Add(newVehicleInGarage);
             m_LicenseNum2Vehicle.Add(i_Blueprint.License, newVehicle);
         }
@@ -52,6 +54,7 @@
         public List<string> GetAllVehiclesLicense(string i_fitler = "")
         {
             VehicleInGarage.eStatus? eFilter = null;
+
             switch (i_fitler)
             {
                 case "PreService":
@@ -74,6 +77,7 @@
         private List<string> getVehiclesByFilter(VehicleInGarage.eStatus? filter)
         {
             List<string> result = new List<string>();
+
             foreach (VehicleInGarage vehicle in m_VehiclesInGarage)
             {
                 if (vehicle.Status == filter || filter == null)
@@ -119,6 +123,7 @@
                 }
                 
                 vehicle.Powersource.Fill(i_Quantity);
+
                 return;
             }
             
@@ -138,6 +143,7 @@
                 }
 
                 vehicle.Powersource.Fill(timeInHours);
+
                 return;
             }
             

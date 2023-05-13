@@ -5,6 +5,7 @@
         internal static Vehicle CreateVehicle(VehicleCreationBlueprint i_Blueprint)
         {
             Vehicle vehicle = null;
+
             switch (i_Blueprint.VehicleType.ToLower())
             {
                 case "car":
@@ -54,6 +55,7 @@
         private static PowerSource createPowerSource(VehicleCreationBlueprint i_Blueprint)
         {
             PowerSource powerSource;
+
             switch (i_Blueprint.PowerSource.ToLower())
             {
                 case "electric":
@@ -73,6 +75,7 @@
         {
             int numOfWheels = i_Blueprint.GetNumOfWheels();
             Wheel[] wheels = new Wheel[numOfWheels];
+
             for (int i = 0; i < numOfWheels; i++)
             {
                 wheels[i] = new Wheel(i_Blueprint.WheelManufacturer, i_Blueprint.CurrentAirPressure, i_Blueprint.GetMaxAirPressure());
