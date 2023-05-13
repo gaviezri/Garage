@@ -24,6 +24,7 @@ namespace Garage
             {
                 instance = new GarageManager();
             }
+            
             return instance;
         }
 
@@ -97,6 +98,7 @@ namespace Garage
                 }
                 return;
             }
+            
             throw new VehicleNotExistsException(i_LicenseNum);
         }
 
@@ -111,14 +113,17 @@ namespace Garage
                 {
                     throw new ArgumentException($"The vehicle with license no. {i_LicenseNum} is not a petroleum powered vehicle!");
                 }
+                
                 PetroleumPowerSource.ePetrolType ePetType = (vehicle.Powersource as PetroleumPowerSource).PetrolType;
                 if (ePetType.Equals(ePetroltype) == false)
                 {
                     throw new ArgumentException($"The vehicle with license no. {i_LicenseNum} is running on {ePetType} but {i_FuelType} was selected.");
                 }
+                
                 vehicle.Powersource.Fill(i_Quantity);
                 return;
             }
+            
             throw new VehicleNotExistsException(i_LicenseNum);
         }
 
@@ -135,13 +140,14 @@ namespace Garage
                 vehicle.Powersource.Fill(i_Quantity);
                 return;
             }
+            
             throw new VehicleNotExistsException(i_LicenseNum);
         } 
 
         public string GetVehicleDataByLicenseNum(string i_LicenseNum)
         {
-           StringBuilder builder = new StringBuilder();
             VehicleInGarage vehicleInGarage = null;
+            
             foreach (VehicleInGarage vehicle in m_VehiclesInGarage)
             {
                 if (vehicle.LicenseNum.Equals(i_LicenseNum))
@@ -150,13 +156,13 @@ namespace Garage
                     break;
                 }
             }
+            
             if (vehicleInGarage == null)
             {
                 throw new VehicleNotExistsException(i_LicenseNum);
             }
            
             return m_LicenseNum2Vehicle[i_LicenseNum].ToString();
-            
         }
     }
 }

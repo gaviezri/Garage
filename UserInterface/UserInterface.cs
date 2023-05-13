@@ -118,7 +118,8 @@ namespace UserInterface
                     chargeBatteryWithQuantity(i_GarageManager);
                     break;
                 case 7:
-                    // showVehicleDetails
+                    showVehicleDetails(i_GarageManager);
+                    break;
                 case 8:
                     o_IsQuit = true;
                     break;
@@ -127,7 +128,6 @@ namespace UserInterface
 
         private void insertVehicleToGarage(GarageManager i_GarageManager)
         {
-            Console.WriteLine("Please enter a vehicle's license number");
             try
             {
                 changeExistingVehicleStatus(i_GarageManager, "PreService");
@@ -210,8 +210,6 @@ namespace UserInterface
         {
             if (i_VehicleBlueprint.PowerSource.ToLower() == "petrol")
             {
-                Console.WriteLine("Please enter petrol type (Soler, Octan95, Octan96 or Octan98):");
-                i_VehicleBlueprint.PetrolType = Console.ReadLine();
                 Console.WriteLine("Please enter amount petrol remaining in litres:");
             }
             else
@@ -420,6 +418,37 @@ namespace UserInterface
             else
             {
                 Console.WriteLine("Status changed successfully!");
+            }
+            
+            pressAnyKeyToContinue();
+        }
+
+        private void showVehicleDetails(GarageManager i_GarageManager)
+        {
+            int originalCursorLeft = Console.CursorLeft;
+            int originalCursorTop = Console.CursorTop;
+            string licenseNumber;
+            string wantedVehicle = "";
+            
+            while (true)
+            {
+                try
+                {
+                    licenseNumber = getLicenseNumber();
+                    wantedVehicle = i_GarageManager.GetVehicleDataByLicenseNum(licenseNumber);
+                    break;
+                }
+                catch (Exception exception)
+                {
+                    resetInput(originalCursorLeft, originalCursorTop);
+                    Console.WriteLine(exception.Message);
+                    Console.WriteLine("Please try again:");
+                }
+            }
+
+            if (wantedVehicle != "")
+            {
+                Console.WriteLine(wantedVehicle);
             }
             
             pressAnyKeyToContinue();
