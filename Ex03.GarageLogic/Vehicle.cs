@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Garage
+namespace Ex03.GarageLogic
 {
     internal abstract class Vehicle
     {

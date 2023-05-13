@@ -1,4 +1,4 @@
-﻿namespace UserInterface
+﻿namespace Ex03.ConsoleUI
 {
     public class Program
     {
